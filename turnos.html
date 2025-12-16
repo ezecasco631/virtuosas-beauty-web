@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservar turno | Virtuosas Beauty</title>
+
+  <!-- Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <meta name="description" content="Reservá tu turno en Virtuosas Beauty. Coloración, mechas y tratamientos capilares en Paso del Rey y Zona Oeste.">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header class="header-top compact">
+  <div class="perfil-container">
+    <img src="img/perfil-paula.jpg" alt="Paula Colorista" class="perfil-img">
+    <div>
+      <h1>Reservar turno</h1>
+      <p>Coordinamos rápido por WhatsApp</p>
+    </div>
+  </div>
+</header>
+
+<main class="turnos-page">
+
+  <section class="turnos-card">
+    <h2><i class="fa-solid fa-calendar-check"></i> Reserva tu turno</h2>
+
+    <form id="turnosForm">
+
+      <div class="form-group">
+        <label>Nombre y apellido</label>
+        <input type="text" id="nombre" placeholder="Ej: María González" required>
+      </div>
+
+      <div class="form-group">
+        <label>WhatsApp</label>
+        <input type="tel" id="telefono" placeholder="Ej: 11 1234 5678" required>
+      </div>
+
+      <div class="form-group">
+        <label>Servicio</label>
+        <select id="servicio" required>
+          <option value="">Seleccionar servicio</option>
+          <option>Corte unisex</option>
+          <option>Coloración</option>
+          <option>Mechas / Babylight</option>
+          <option>Reflejos / Claritos</option>
+          <option>Tratamiento capilar</option>
+          <option>Alisado con o sin formol</option>
+          <option>Manicuría</option>
+          <option>Depilación</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" id="fecha" required>
+        </div>
+
+        <div class="form-group">
+          <label>Horario</label>
+          <input type="time" id="hora" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Mensaje adicional (opcional)</label>
+        <textarea id="mensaje" rows="3" placeholder="Ej: a domicilio / largo del cabello / consulta..."></textarea>
+      </div>
+
+      <button type="button" class="btn-primary" onclick="enviarWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> Enviar reserva por WhatsApp
+      </button>
+      
+
+    </form>
+
+    <p class="nota">
+      <i class="fa-solid fa-circle-info"></i>
+      El turno se confirma una vez coordinado por WhatsApp.
+    </p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© <span id="year"></span> Virtuosas Beauty · Paula Colorista</p>
+</footer>
+
+<!-- SCRIPT FUNCIONAL -->
+<script>
+  const WHATSAPP_NUMBER = "542204085348"; // número correcto
+
+  function buildWaLink(message) {
+    return https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)};
+  }
+
+  // Año automático
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Formulario
+  const form = document.getElementById("turnosForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value;
+    const telefono = document.getElementById("telefono").value;
+    const servicio = document.getElementById("servicio").value;
+    const fecha = document.getElementById("fecha").value;
+    const hora = document.getElementById("hora").value;
+    const mensajeExtra = document.getElementById("mensaje").value;
+
+    const mensaje =
+`Hola! Quiero reservar un turno en Virtuosas Beauty 💇‍♀️
+
+👤 Nombre: ${nombre}
+📱 WhatsApp: ${telefono}
+💄 Servicio: ${servicio}
+📅 Fecha: ${fecha}
+⏰ Hora: ${hora}
+
+📝 Mensaje:
+${mensajeExtra || "Sin mensaje adicional"}`;
+
+    window.open(buildWaLink(mensaje), "_blank");
+  });
+</script>
+<script>
+    function enviarWhatsApp() {
+    
+      const nombre = document.getElementById("nombre").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const servicio = document.getElementById("servicio").value;
+      const fecha = document.getElementById("fecha").value;
+      const hora = document.getElementById("hora").value;
+      const mensajeExtra = document.getElementById("mensaje").value.trim();
+    
+      // Validación mínima
+      if (!nombre || !telefono || !servicio || !fecha || !hora) {
+        alert("Por favor completá todos los campos obligatorios.");
+        return;
+      }
+    
+      const mensaje =
+    `Hola! Quiero reservar un turno en Virtuosas Beauty 💇‍♀️✨
+    
+    👤 Nombre: ${nombre}
+    📱 WhatsApp: ${telefono}
+    💄 Servicio: ${servicio}
+    📅 Fecha: ${fecha}
+    ⏰ Hora: ${hora}
+    
+    📝 Mensaje:
+    ${mensajeExtra || "Sin mensaje adicional"}`;
+    
+      const numero = "542204085348";
+      const url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
+    
+      // ESTA línea es la clave
+      window.location.href = url;
+    }
+    </script>
+    
+</body>
+</html>
